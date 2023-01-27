@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "iterator": "c",
+        "cstdlib": "cpp",
+        "iostream": "cpp",
+        "fstream": "cpp",
+        "__bit_reference": "cpp",
+        "__string": "cpp",
+        "algorithm": "cpp",
+        "deque": "cpp",
+        "ios": "cpp",
+        "type_traits": "cpp",
+        "string": "cpp",
+        "iosfwd": "cpp"
+    }
+}
