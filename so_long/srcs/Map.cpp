@@ -1,13 +1,12 @@
 #include "Map.hpp"
 
-void Map::setMap(std::ifstream& ifs) {
+void Map::readMap(std::ifstream& ifs) {
   std::string line;
 
   while (std::getline(ifs, line))
     map.push_back(line);
   if (map.empty())
     putErrExit("Empty map!");
-  size = map[0].size();
   checkMap();
 }
 
@@ -16,7 +15,7 @@ void Map::checkMap() {
 
   tmp = map;
   for (size_t i = 0; i != tmp.size(); i++) {
-    if (tmp[i].size() - 1 != size)
+    if (tmp[i].size() - 1 != width())
       putErrExit("Not stable line!");
     if (checkWall(tmp[i], i))
       putErrExit("Wall problem!");
@@ -29,8 +28,8 @@ void Map::checkMap() {
     putErrExit("Too many enemy!");
 }
 
-bool Map::checkWall(const std::string& line, int idx) const {
-  if (idx == 0 || idx == size - 1) {
+bool Map::checkWall(const std::string& line, size_t idx) const {
+  if (idx == 0 || idx == width() - 1) {
     for (size_t i = 0; i != line.size(); i++) {
       if (line[i] != '1')
         return (true);
@@ -43,7 +42,7 @@ bool Map::checkWall(const std::string& line, int idx) const {
 }
 
 bool Map::setElem(const std::string& line) {
-  for (size_t i = 0; i != size; i++) {
+  for (size_t i = 0; i != width(); i++) {
     if (!isElem(line[i]))
       return (true);
     if (line[i] == 'E')
@@ -55,6 +54,7 @@ bool Map::setElem(const std::string& line) {
     else if (line[i] == 'X')
       ++cnt[ENEMY];
   }
+  return (false);
 }
 
 std::string& Map::operator[](int idx) {
@@ -71,4 +71,12 @@ void Map::decreaseTicketCnt() {
 
 ft::vector<std::string> Map::getMap() const {
   return (map);
+}
+
+size_t Map::width() const {
+  return (map[0].size());
+}
+
+size_t Map::height() const {
+  return (map.size());
 }

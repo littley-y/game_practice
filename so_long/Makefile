@@ -6,33 +6,33 @@
 #    By: yehyun <yehyun@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/19 15:49:02 by yehyun            #+#    #+#              #
-#    Updated: 2023/01/27 15:08:48 by yehyun           ###   ########seoul.kr   #
+#    Updated: 2023/01/28 14:56:46 by yehyun           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
-FRAMEWORK = -framework OpenGL -framework AppKit
+CPP = c++
+CXXFLAGS = -Wall -Wextra -Werror
+MLXFLAG = glfw
 RM = rm -f
 
-MLXDIR = ../mlx/
+MLXDIR = ../MLX42/
 SRC_DIR = srcs/
 
-SRCS = main.cpp Param.cpp Window.cpp
+SRC = main.cpp Param.cpp Window.cpp Map.cpp utils.cpp
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:.cpp=.o)
+
 all : $(NAME)
 
 $(NAME) : $(OBJS)
 	make -C $(MLXDIR)
-	make -C $(LIBDIR)
-	$(CC) $(CFLAGS) -L$(MLXDIR) -lmlx $(FRAMEWORK) $^ -o $@
+	$(CPP) $(CXXFLAGS) libmlx42.a -I include -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit $^ -o $@
 
-%.o : %.c
-	$(CC) $(CFLAGS) -Imlx -c $< -o $@
+%.o : %.cpp
+	$(CPP) $(CXXFLAGS) -Imlx -c $< -o $@
 
 clean :
 	make clean -C $(MLXDIR)

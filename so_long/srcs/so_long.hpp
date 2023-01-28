@@ -1,10 +1,10 @@
-#ifndef __SO_LONG_HPP__
-#define __SO_LONG_HPP__
+#ifndef __SO_LONG_H__
+#define __SO_LONG_H__
 
 #include <fstream>
 #include <iostream>
+#include "../../MLX42/include/MLX42/MLX42.h"
 #include "../../containers/vector.hpp"
-#include "../../mlx/mlx.h"
 #include "Map.hpp"
 #include "Param.hpp"
 #include "Window.hpp"
@@ -43,17 +43,9 @@ struct playerImg {
   imgData pr[3];
 };
 
-struct mapElements {
-  int exit;
-  int tic;
-  int start;
-  int enemy;
-};
-
-void putErrExit(char* str);
+void putErrExit(std::string str);
 bool isElem(char c);
-int mlx_game(Map& map, t_elem game);
-Map move_line(Map map, int move_index);
-void get_location(int* x, int* y, int lx, int ly);
+void getLocation(int* x, int* y, int lx, int ly);
+char* ch(const char* str);
 
-#endif  // __SO_LONG_HPP__
+#endif  // __SO_LONG_H__

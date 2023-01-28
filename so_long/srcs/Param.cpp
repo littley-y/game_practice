@@ -1,30 +1,40 @@
 #include "Param.hpp"
 
-Param::Param() {}
+Param::Param(Window& window, Map& map, objImg& obj, playerImg& players)
+    : x(0),
+      y(0),
+      ex(0),
+      ey(0),
+      count(0),
+      gameWindow(window),
+      gameMap(map),
+      gameObjs(obj),
+      players(players) {}
 
-Param::~Param() {}
+int Param::keyPress() {
+  Param pm;
+  int keycode = 0;
 
-int Param::keyPress(int keycode) {
-  window.imgToWin(pic.wall.img, 0, 0);
-  moveEnemy(count % 6);
-  if (map[y][x] == 'X')
-    window.putMsgExit("Enemy faced!");
+  pm.gameWindow.imgToWin(pm.gameObjs.wall.img, 0, 0);
+  pm.moveEnemy(pm.count % 6);
+  if (pm.gameMap[pm.y][pm.x] == 'X')
+    pm.gameWindow.putMsgExit("Enemy faced!");
   if (keycode == KEY_W) {
-    movePlayer(x, y - 1);
-    putPlayerToWindow(pl.pb, x, y);
+    pm.movePlayer(pm.x, pm.y - 1);
+    pm.putPlayerToWindow(pm.players.pb, pm.x, pm.y);
   } else if (keycode == KEY_A) {
-    movePlayer(x - 1, y);
-    putPlayerToWindow(pl.pl, x, y);
+    pm.movePlayer(pm.x - 1, pm.y);
+    pm.putPlayerToWindow(pm.players.pl, pm.x, pm.y);
   } else if (keycode == KEY_S) {
-    movePlayer(x, y + 1);
-    putPlayerToWindow(pl.pf, x, y);
+    pm.movePlayer(pm.x, pm.y + 1);
+    pm.putPlayerToWindow(pm.players.pf, pm.x, pm.y);
   } else if (keycode == KEY_D) {
-    movePlayer(x + 1, y);
-    putPlayerToWindow(pl.pr, x, y);
+    pm.movePlayer(pm.x + 1, pm.y);
+    pm.putPlayerToWindow(pm.players.pr, pm.x, pm.y);
   } else if (keycode == KEY_ESC)
-    window.putMsgExit("Bye!");
-  if (map[y][x] == 'X')
-    window.putMsgExit("Enemy faced!");
+    pm.gameWindow.putMsgExit("Bye!");
+  if (pm.gameMap[pm.y][pm.x] == 'X')
+    pm.gameWindow.putMsgExit("Enemy faced!");
   return (0);
 }
 
@@ -40,36 +50,51 @@ void Param::moveEnemy(int dir) {
     mx = ex + 1;
   else if (dir == 5)
     my = ey + 1;
-  if (map[my][mx] == 'C' || map[my][mx] == 'E' || map[my][mx] == '1')
+  if (gameMap[my][mx] == 'C' || gameMap[my][mx] == 'E' ||
+      gameMap[my][mx] == '1')
     return;
-  window.imgToWin(pic.bg.img, ex, ey);
-  window.imgToWin(pic.enemy.img, mx, my);
-  map[ey][ex] = '0';
-  map[my][mx] = 'X';
+  gameWindow.imgToWin(gameObjs.bg.img, ex, ey);
+  gameWindow.imgToWin(gameObjs.enemy.img, mx, my);
+  gameMap[ey][ex] = '0';
+  gameMap[my][mx] = 'X';
   ex = mx;
   ey = my;
 }
 
 void Param::movePlayer(int mx, int my) {
-  if (map[my][mx] == '1' || (map[my][mx] == 'E' && map.getTicketCnt()))
+  if (gameMap[my][mx] == '1' ||
+      (gameMap[my][mx] == 'E' && gameMap.getTicketCnt()))
     return;
-  else if (map[my][mx] == 'C') {
-    map.decreaseTicketCnt();
-    map[my][mx] = '0';
-    window.imgToWin(pic.bg.img, mx, my);
-  } else if (map[my][mx] == 'E')
-    window.putMsgExit("Nice!");
-  window.putString(++count);
-  window.imgToWin(pic.bg.img, x, y);
+  else if (gameMap[my][mx] == 'C') {
+    gameMap.decreaseTicketCnt();
+    gameMap[my][mx] = '0';
+    gameWindow.imgToWin(gameObjs.bg.img, mx, my);
+  } else if (gameMap[my][mx] == 'E')
+    gameWindow.putMsgExit("Nice!");
+  gameWindow.putString(++count);
+  gameWindow.imgToWin(gameObjs.bg.img, x, y);
   x = mx;
   y = my;
 }
 
 void Param::putPlayerToWindow(imgData* data, int x, int y) {
   if (count % 2 == 0)
-    window.imgToWin(data[0].img, x, y);
+    gameWindow.imgToWin(data[0].img, x, y);
   else if (count % 4 == 1)
-    window.imgToWin(data[1].img, x, y);
+    gameWindow.imgToWin(data[1].img, x, y);
   else
-    window.imgToWin(data[2].img, x, y);
+    gameWindow.imgToWin(data[2].img, x, y);
+}
+
+void Param::getStart() {
+  for (size_t i = 0; i != gameMap.height(); i++) {
+    for (size_t j = 0; j != gameMap.width() - 1; j++) {
+      if (gameMap[i][j] == 'P') {
+        getLocation(&x, &y, j, i);
+        gameMap[i][j] = '0';
+      } else if (gameMap[i][j] == 'X') {
+        getLocation(&ex, &ey, j, i);
+      }
+    }
+  }
 }

@@ -1,5 +1,5 @@
-#ifndef __MAP_HPP__
-#define __MAP_HPP__
+#ifndef __MAP_H__
+#define __MAP_H__
 
 #include "so_long.hpp"
 
@@ -9,19 +9,21 @@ class Map {
   typedef ft::vector<std::string> strVec;
 
   strVec map;
-  size_t size;
   int cnt[4];
 
  public:
-  void setMap(std::ifstream& ifs);
+  void readMap(std::ifstream& ifs);
   void checkMap();
-  bool checkWall(const std::string& line, int idx) const;
+  bool checkWall(const std::string& line, size_t idx) const;
   bool setElem(const std::string& line);
   int getTicketCnt() const;
   void decreaseTicketCnt();
+
   strVec getMap() const;
+  size_t width() const;
+  size_t height() const;
 
   std::string& operator[](int idx);
 };
 
-#endif  // __MAP_HPP__
+#endif  // __MAP_H__

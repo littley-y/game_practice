@@ -1,29 +1,34 @@
-#ifndef __PARAM_HPP__
-#define __PARAM_HPP__
+#ifndef __PARAM_H__
+#define __PARAM_H__
 
 #include "so_long.hpp"
 
+struct objImg;
+struct playerImg;
+struct Window;
+struct imgData;
+class Map;
+
 class Param {
- private:
+ public:
   int x;
   int y;
   int ex;
   int ey;
   int count;
-  Window window;
-  objImg pic;
-  playerImg pl;
-  ft::vector<std::string> map;
-  char* display;
+  Window& gameWindow;
+  Map& gameMap;
+  objImg& gameObjs;
+  playerImg& players;
 
- public:
+  Param(Window& window, Map& map, objImg& obj, playerImg& pl);
   Param();
-  ~Param();
 
-  int keyPress(int keycode);
+  static int keyPress();
   void movePlayer(int x, int y);
   void moveEnemy(int dir);
   void putPlayerToWindow(imgData* data, int x, int y);
+  void getStart();
 };
 
-#endif  // __PARAM_HPP__
+#endif  // __PARAM_H__
