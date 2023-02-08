@@ -44,6 +44,10 @@
         "cmath": "cpp",
         "complex": "cpp",
         "mutex": "cpp",
-        "tuple": "cpp"
+        "tuple": "cpp",
+        "so_long.h": "c",
+        "mlx.h": "c",
+        "libft.h": "c",
+        "unistd.h": "c"
     }
 }
