@@ -62,7 +62,7 @@ typedef struct s_node {
 void puterror_exit(char* str);
 int mlx_game(t_list** map);
 int putmsg_exit(char* str, t_var* var);
-void put_imgs(t_param* main, int p_x, int p_y);
+void put_imgs(t_param* main);
 void get_images(t_var* var, t_pic* pic);
 void img_to_win(t_var* var, void* img, int x, int y);
 void get_map(t_list** map, int fd);

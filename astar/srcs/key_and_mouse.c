@@ -1,18 +1,20 @@
 #include "astar.h"
 
 int mouse_click(int mouse_code, int x, int y, t_param* main) {
-  x /= 64;
-  y /= 64;
+  x /= 32;
+  y /= 32;
+
   if (mouse_code != 1 || (x == main->x && y == main->y))
     return (0);
+
   if (main->map[y][x] == '0') {
     main->map[y][x] = '1';
-    put_imgs(main, main->x, main->y);
+    put_imgs(main);
     a_star(main, main->var.width, main->var.height);
   } else if (main->map[y][x] == '1') {
     if (x && x != main->var.width - 1 && y && y != main->var.height - 1) {
       main->map[y][x] = '0';
-      put_imgs(main, main->x, main->y);
+      put_imgs(main);
       a_star(main, main->var.width, main->var.height);
     }
   }
@@ -39,7 +41,7 @@ int key_press(int keycode, t_param* main) {
   } else if (main->map[my][mx] != '1') {
     main->x = mx;
     main->y = my;
-    put_imgs(main, mx, my);
+    put_imgs(main);
     a_star(main, main->var.width, main->var.height);
   }
   return (0);

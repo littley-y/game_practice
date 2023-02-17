@@ -32,14 +32,15 @@ int mlx_game(t_list** map) {
 
   ft_memset(&main, 0, sizeof(t_param));
   main.var.mlx = mlx_init();
-  main.var.width = (ft_strlen((*map)->content) - 1) * 64;
-  main.var.height = ft_lstsize(*map) * 64;
+  main.var.width = (ft_strlen((*map)->content) - 1) * 32;
+  main.var.height = ft_lstsize(*map) * 32;
   main.var.win =
       mlx_new_window(main.var.mlx, main.var.width, main.var.height, "astar");
   get_images(&main.var, &main.pic);
   get_start(&main, map);
   ft_lstclear(map, &free);
-  put_imgs(&main, main.x, main.y);
+  put_imgs(&main);
+  a_star(&main, main.var.width, main.var.height);
   mlx_hook(main.var.win, KEY_PRESS, 0, &key_press, &main);
   mlx_hook(main.var.win, MOUSE_CLICK, 0, &mouse_click, &main);
   mlx_hook(main.var.win, RED_BUTTON, 0, &exit_hook, &main.var);

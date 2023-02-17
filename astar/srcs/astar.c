@@ -42,11 +42,14 @@ void print_path(t_param* main, t_node* curr) {
   int cnt = 0;
 
   while (curr->parent != NULL) {
-    if (cnt != 0)
-      img_to_win(&main->var, main->pic.ticket.img, curr->x, curr->y);
+    img_to_win(&main->var, main->pic.ticket.img, curr->x, curr->y);
+    if (cnt == 0)
+      img_to_win(&main->var, main->pic.exit.img, curr->x, curr->y);
     curr = curr->parent;
     cnt++;
   }
+  img_to_win(&main->var, main->pic.ticket.img, main->x, main->y);
+  img_to_win(&main->var, main->pic.player.img, main->x, main->y);
   printf("fast way : %d\n", cnt);
 }
 
@@ -113,5 +116,6 @@ void a_star(t_param* main, int width, int height) {
     }
   }
   free_lists(close_list, close_cnt);
+  img_to_win(&main->var, main->pic.player.img, main->x, main->y);
   printf("no path!\n");
 }
