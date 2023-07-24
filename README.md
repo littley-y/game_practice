@@ -11,13 +11,6 @@
 
 ---
 
-## **예전 프로그램 클립**
-<img src="https://user-images.githubusercontent.com/103979407/217523059-322e605a-35c0-4ec2-b685-80e4d8126c49.gif" width="500">
-</br>
-<img src="https://user-images.githubusercontent.com/103979407/217523076-2c5097c1-0079-4497-8248-f742332d3de5.gif" width="500">
-
----
-
 ## **1. so_long**
 
 `so_long`은 `mlx` 라이브러리를 이용해 만든 간단한 탈출 프로그램입니다. `WASD`로 이동할 수 있고, 모든 우유를 먹어야 탈출할 수 있습니다. 플레이어의 키 입력이 일어날 때 마다 소가 움직입니다. 소와 마주쳐서 우유를 뺏기면 프로그램이 종료되니 주의하세요! </br>
