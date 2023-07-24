@@ -40,13 +40,13 @@
 ## **4. containers**
 기초적인 자료구조 및 템플릿을 통한 제네릭 프로그래밍에 대한 이해를 목표로 한 프로젝트입니다. C++98 표준을 기반으로 만들었습니다. STL의 `vector`, `stack`, `map`, `set`과 `iterator`를 직접 구현했습니다. 추가적으로 STL에 필요한
 
-• std::iterator_traits </br>
-• std::reverse_iterator </br>
-• std::enable_if(C++98에는 없는 기능이지만, 과제를 위해 직접 구현했습니다.) </br>
-• std::is_integral </br>
-• std::equal </br>
-• std::lexicographical_compare </br>
-• std::pair </br>
-• std::make_pair </br>
+• `std::iterator_traits` </br>
+• `std::reverse_iterator` </br>
+• `std::enable_if`(C++98에는 없는 기능이지만, 과제를 위해 직접 구현했습니다.) </br>
+• `std::is_integral` </br>
+• `std::equal` </br>
+• `std::lexicographical_compare` </br>
+• `std::pair` </br>
+• `std::make_pair` </br>
 
 등을 모두 구현했습니다.
